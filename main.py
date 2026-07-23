@@ -5,30 +5,33 @@ Created on Mon Jun  1 19:22:14 2026
 @author: USER
 """
 
+import os
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
+import pandas as pd
+import numpy as np
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 #loading the saved models
-diabetes_model = pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/Disease sav/Diabetes.sav", 'rb'))
-heart_disease_model = pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/Disease sav/Heart Disease.sav", 'rb'))
-parkinson_model =  pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/Disease sav/Parkinson Disease.sav", 'rb'))
-scaler = pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/scaler.pkl", 'rb'))
-heart_scaler = pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/heart_scaler.pkl", 'rb'))
-parkinson_scaler = pickle.load(open("C:/Users/USER/Documents/MACHINE LEARNING PROJECTS/PROJECT PORTFOLIO/SID 51 PROJECTS/PROJECT 24 - MULTIPLE DISEASE PREDICTION/parkinson_scaler.pkl", 'rb'))
+diabetes_model = pickle.load(open(os.path.join(BASE_DIR, 'Disease sav', 'Diabetes.sav'), 'rb'))
+heart_disease_model = pickle.load(open(os.path.join(BASE_DIR, 'Disease sav', 'Heart Disease.sav'), 'rb'))
+parkinson_model = pickle.load(open(os.path.join(BASE_DIR, 'Disease sav', 'Parkinson Disease.sav'), 'rb'))
+scaler = pickle.load(open(os.path.join(BASE_DIR, 'scaler.pkl'), 'rb'))
+heart_scaler = pickle.load(open(os.path.join(BASE_DIR, 'heart_scaler.pkl'), 'rb'))
+parkinson_scaler = pickle.load(open(os.path.join(BASE_DIR, 'parkinson_scaler.pkl'), 'rb'))
+
 #sidebar for navigate
 with st.sidebar: 
     selected = option_menu('Multiple Disease Prediction System using ML',
                            ['Diabetes Prediction',
                             'Heart Disease Prediction',
                             'Parkinsons Prediction'],
-                           icons = ['activity', 'heart', 'person'], #We used the name of icons from www.bootstrapicon.com For Diabetes we used activity, for heart disease we used heart etc
+                           icons = ['activity', 'heart', 'person'],
                            default_index = 0)
     
 #Diabetes Prediction Page
-import pandas as pd
-import numpy as np
-
-
 if (selected == 'Diabetes Prediction'):
     st.title('Diabetes Prediction using ML')
     
